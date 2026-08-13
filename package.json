@@ -1,0 +1,25 @@
+{
+  "name": "json-schemas",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "types": "./index.d.ts",
+    "default": "./dist/counter.js"
+  },
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "tsx ./build/init.ts && tsx ./build/metaschemas.ts && tsx ./build/declarations.ts",
+    "build": "tsc && vite build"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "mustache": "^4.2.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.3"
+  }
+}
