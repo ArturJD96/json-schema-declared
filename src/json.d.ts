@@ -17,5 +17,3 @@ type JsonObject = { [k: string]: Json | Json[] } // to do: [k: string]
 type JsonArray = { [k: number]: Leaf | JsonObject } // To DO: implement it fully
 type Leaf = boolean | null | number | string
 type JsonKey = string | number
-
-type ZZ = keyof JsonObject
