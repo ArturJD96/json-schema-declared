@@ -44,8 +44,6 @@ async function downloadSchema(name: typeof schemas[number], dir = join(SCHEMAS_D
       If not, download it.
     */
     if (json['$schema'] !== (json['$id'] ?? json['id'])) {
-      const meta = json['$schema'].replace('#', '')//.replace('http:', 'https:')
-      // const fn = `${meta.split('/').at(-1)}.json`
       externalRefs.push(json['$schema'])
     }
 
@@ -58,7 +56,7 @@ async function downloadSchema(name: typeof schemas[number], dir = join(SCHEMAS_D
 
       const link = ref.startsWith('http')
 
-      const dirRef = join(SCHEMAS_DIR, name, link ? ref.split('/').at(-1).replace('#', '') : ref);
+      const dirRef = join(SCHEMAS_DIR, name, link ? ref.split('/').at(-1)!.replace('#', '') : ref);
       const dirRFC = dirRef.split('/').slice(0, -1).join('/')
 
       const linkRef = metaschemas[name];
