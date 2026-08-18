@@ -34,11 +34,6 @@ type MetaschemaByVersion<V extends MetaschemaVersion> = MetaschemaByID<`${string
 type Id<S extends MinimalJsonSchema> = S extends {"$id": infer ID } ? ID : S extends {"id": infer ID} ? ID : never
 
 /**
- * Retrieve JSON Schema metaschema by version or ID.
- */
-type Metaschema<VersionOrId extends MetaschemaVersion | MetaschemaId> = VersionOrId extends MetaschemaVersion ? MetaschemaByVersion<VersionOrId> : MetaschemaByID<VersionOrId>
-
-/**
  * Utility type for distinguishing schemas vs. ordinary JSON objects.
  */
 type MinimalJsonSchema = JsonObject & { "$schema": MetaschemaId }
