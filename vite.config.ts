@@ -3,9 +3,9 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   build: {
     lib: {
-      entry: './lib/main.ts',
+      entry: './lib/main.d.ts',
       formats: ['es'],
-      fileName: 'counter',
+      fileName: 'json-schema-metaschemas',
     },
   },
 })
