@@ -142,7 +142,6 @@ function resolveRefs(schema: string): string {
   //  This is just a case-specific work-around.
   //  Source: https://www.learnjsonschema.com/2020-12/core/dynamicref/, see: 'meta'.
   const metaschema = getMetaschema(schema)
-  console.log(id.uri, metaschema)
   if (id.uri !== metaschema) {
     schema = schema.replaceAll(/\$dynamicRef:\s*"#meta([^"]*)"/g, `$ref:"${metaschema}#$1"`)
   }
