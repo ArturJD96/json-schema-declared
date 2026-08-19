@@ -14,6 +14,13 @@ type UriRef<
       : never)
   : S
 
+
+/**
+ * Retrieve schema's ID.
+ */
+type Id<S extends MinimalJsonSchema> = S extends {"$id": infer ID } ? ID : S extends {"id": infer ID} ? ID : never
+
+
 /**
  * Resolve Json Pointer reference to a JSON.
  *
