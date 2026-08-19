@@ -6,6 +6,6 @@
  * interface with them using our custom types.
  */
 
-import type { MetaschemaVersion, MetaschemaByID, MetaschemaByVersion } from "./src/metaschemas";
-import type { SimpleTypes } from "./src/simple-types";
-import type { Keywords } from "./src/keywords";
+export type { MetaschemaVersion, MetaschemaByID, MetaschemaByVersion } from "./src/metaschemas";
+export type { SimpleTypes } from "./src/simple-types";
+export type { Keywords } from "./src/keywords";
