@@ -3,7 +3,7 @@
     "target": "es2023",
     "module": "esnext",
     "lib": ["ES2023", "DOM"],
-    "types": ["vite/client", "node"],
+    "types": ["node"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -29,5 +29,5 @@
     /* Using */
     "noErrorTruncation": true
   },
-  "include": ["src", "lib", "build"],
+  "include": ["lib", "build"],
 }
