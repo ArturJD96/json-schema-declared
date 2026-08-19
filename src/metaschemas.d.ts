@@ -1,10 +1,10 @@
 import type * as declarations from "./declarations"
 import type metaschemas from "../build/metaschemas.json"
 
-// /**
-//  * Extract from union. Given the key `K` exists in object `O`, extract it's type.
-//  */
-// type ExtractKey<O extends object, K extends string> = Extract<O, { [key in K]: string }>[K]
+/**
+ * Extract from union. Given the key `K` exists in object `O`, extract it's type.
+ */
+type ExtractKey<O extends object, K extends string> = Extract<O, { [key in K]: string }>[K]
 
 /**
  * Names of all (covered) JSON Schema metaschemas.
@@ -21,16 +21,16 @@ type METASCHEMA_DECLARATIONS = typeof declarations
  */
 type Metaschemas = METASCHEMA_DECLARATIONS[keyof METASCHEMA_DECLARATIONS]
 
-// /**
-//  * All available JSON Schema metaschemas IDs.
-//  */
-// type MetaschemaId = (ExtractKey<Metaschemas, "id"> | ExtractKey<Metaschemas, "$id">) //& (`${string}/schema` | `${string}/schema#`)
+/**
+ * All available JSON Schema metaschemas IDs.
+ */
+type MetaschemaId = (ExtractKey<Metaschemas, "id"> | ExtractKey<Metaschemas, "$id">) //& (`${string}/schema` | `${string}/schema#`)
 
 /**
  * Retrieve a JSON Schema metaschema from declarations using metaschema's ID.
  * @example MetaschemaByID<"https://json-schema.org/draft/2020-12/schema">
  */
-export type MetaschemaByID<ID extends string> = Extract<Metaschemas, { "$id": ID } | { "id": ID }>
+export type MetaschemaByID<ID extends MetaschemaId> = Extract<Metaschemas, { "$id": ID } | { "id": ID }>
 
 /**
  * Retrieve a JSON Schema metaschema from declarations using metaschema's identifier (name).

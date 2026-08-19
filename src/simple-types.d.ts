@@ -1,4 +1,4 @@
-import type * as declarations from "./declarations.d.ts"
+import type * as declarations from "./declarations"
 import type { MetaschemaVersion } from "./metaschemas"
 
 /**
