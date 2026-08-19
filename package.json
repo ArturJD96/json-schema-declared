@@ -10,8 +10,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "prebuild": "tsx ./build/init.ts && tsx ./build/metaschemas.ts && tsx ./build/declarations.ts",
-    "build": "tsc && vite build"
+    "build": "tsx ./build/build.ts"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
