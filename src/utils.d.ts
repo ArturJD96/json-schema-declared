@@ -1,10 +1,10 @@
 /**
  * Forces object `O` to list all values of K as keys with value V.
  */
-type ForEach<K, V, O extends Record<K, V>> = O
+type ForEach<K, V, O extends Record<K, V> = Record<K, V>> = O
 
 /**
- * Extract from union Given the key `K` exists in object `O`, extract it's type.
+ * Extract from union. Given the key `K` exists in object `O`, extract it's type.
  */
 type ExtractKey<O extends object, K extends string> = Extract<O, { [key in K]: string }>[K]
 
