@@ -27,5 +27,5 @@
     "noImplicitAny": true,
 
   },
-  "include": ["src", "build", "index.d.ts"],
+  "include": ["src", "build", "index.d.ts", "tests/merge.test.ts"],
 }
