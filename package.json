@@ -6,11 +6,8 @@
     "type": "git",
     "url": "https://github.com/ArturJD96/json-schema-declared"
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "tsx ./build/build.ts"
+    "build-declarations": "tsx ./build/build.ts"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",

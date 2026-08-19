@@ -36,7 +36,7 @@ pnpm install -D "json-schema-declared"
 The package distributed here is already built. If you want to run building script yourself, to:
 
 ```bash
-pnpm build
+pnpm build-declarations
 ```
 
 ## Rationale
