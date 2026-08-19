@@ -29,5 +29,5 @@
     /* Using */
     "noErrorTruncation": true
   },
-  "include": ["src", "lib"],
+  "include": ["src", "lib", "build"],
 }

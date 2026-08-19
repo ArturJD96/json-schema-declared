@@ -1,5 +1,5 @@
 /*
-  This script downloads the schemas.
+  This script downloads the JSON Schema metaschemas and their dependencies.
 */
 
 import { mkdirSync, writeFileSync } from "fs"
@@ -17,7 +17,7 @@ async function downloadSchema(name: typeof schemas[number], dir = join(SCHEMAS_D
   const schema = await fetch(link)
   /*
     We verify first if the link contains a valid json
-    (because json-schema.org outputs anyway some html garbage on invalid url).
+    (because, on invalid url, json-schema.org posts anyway some html garbage).
   */
   try {
 
@@ -28,17 +28,16 @@ async function downloadSchema(name: typeof schemas[number], dir = join(SCHEMAS_D
     SCHEMA_IDS.push(json.$id ?? json.id)
     mkdirSync(dir, { recursive: true })
     writeFileSync(fn ?? `${dir}/schema.json`, text)
-
     /*
       We need to find other files referenced by the metaschema file.
       We first look for all the references that do not start with '#'.
       If '#' appears inside, we look if the ref string before '#/' already exits.
 
       // TO DO: align with RFC 3986 URI resolution rules.
+      // TO DO: align with updated code from `./declarations.ts`.
     */
     const ref = /"\$ref":\s*"([^#][^"]+)"/g
     const externalRefs = [...text.matchAll(ref)].map(m => m[1])
-
     /*
       Also, we need to see if metaschema's $schema is itself.
       If not, download it.
@@ -76,7 +75,11 @@ async function downloadSchema(name: typeof schemas[number], dir = join(SCHEMAS_D
   }
 }
 
-async function MAIN() {
+
+/**
+ * Download all metaschemas mentioned in `metaschemas.json`.
+ */
+export async function downloadMetaschemas() {
 
   mkdirSync(SCHEMAS_DIR)
 
@@ -89,5 +92,3 @@ async function MAIN() {
     .catch(abort)
 
 }
-
-await MAIN()
