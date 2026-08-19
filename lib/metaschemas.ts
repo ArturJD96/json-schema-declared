@@ -28,10 +28,13 @@ type Metaschemas = METASCHEMA_DECLARATIONS[keyof METASCHEMA_DECLARATIONS]
 
 /**
  * Retrieve a JSON Schema metaschema from declarations using metaschema's ID.
+ * @example MetaschemaByID<"https://json-schema.org/draft/2020-12/schema">
  */
 export type MetaschemaByID<ID extends string> = Extract<Metaschemas, { "$id": ID } | { "id": ID }>
 
 /**
  * Retrieve a JSON Schema metaschema from declarations using metaschema's identifier (name).
+ * @example MetaschemaByVersion<"draft-00">
+ * @example MetaschemaByVersion<"2020-12">
  */
 export type MetaschemaByVersion<V extends MetaschemaVersion> = MetaschemaByID<`${string}/${V}/schema#` | `${string}/draft/${V}/schema`>

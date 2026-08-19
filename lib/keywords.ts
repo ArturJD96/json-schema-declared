@@ -11,6 +11,9 @@ type AllOf<J extends JsonObject> = J extends { "allOf": JsonObject[] } ? Merge<[
 
 /**
  * Lists all the JSON schema keywords for a given version.
+ * @example Keywords<"draft-00">
+ * @example Keywords<"draft-07">
+ * @example Keywords<"2020-12">
  */
 /*
   NOTE:

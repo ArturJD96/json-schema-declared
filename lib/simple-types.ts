@@ -37,5 +37,8 @@ type SimpleTypesPerMetaschema = ForEach<MetaschemaVersion, string, {
 
 /**
  * Retrieves all metaschema's simple types.
+ * @example Keywords<"draft-00">
+ * @example Keywords<"draft-07">
+ * @example Keywords<"2020-12">
  */
 export type SimpleTypes<V extends MetaschemaVersion> = SimpleTypesPerMetaschema[V]
