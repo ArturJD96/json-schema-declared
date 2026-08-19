@@ -13,7 +13,7 @@ The file `metaschemas.json` serves as a source of truth containing links to avai
 > Refer to `build.ts` file for exact build steps.
 
 Build steps automated by those scripts are:
-1) Download all JSON Schema metaschemas mentioned in `metaschemas.json` together with their dependent schemas,
+1) Download all JSON Schema metaschemas mentioned in `metaschemas.json` together with their dependent schemas to `schemas` directory.
 2) Create a `declarations.d.ts` containing metaschema's content as Typescript's `export declare const` types.
 > [!Important]
 > This step turns all Json Schema references into Typescript type references.
