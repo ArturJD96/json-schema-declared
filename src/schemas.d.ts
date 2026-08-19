@@ -27,13 +27,3 @@ type MetaschemaByID<ID extends string> = Extract<Metaschemas, { "$id": ID } | { 
  * Retrieve a JSON Schema metaschema from declarations using metaschema's identifier (name).
  */
 type MetaschemaByVersion<V extends MetaschemaVersion> = MetaschemaByID<`${string}/${V}/schema#` | `${string}/draft/${V}/schema`>
-
-/**
- * Retrieve schema's ID.
- */
-type Id<S extends MinimalJsonSchema> = S extends {"$id": infer ID } ? ID : S extends {"id": infer ID} ? ID : never
-
-/**
- * Utility type for distinguishing schemas vs. ordinary JSON objects.
- */
-type MinimalJsonSchema = JsonObject & { "$schema": MetaschemaId }
