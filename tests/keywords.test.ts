@@ -21,6 +21,6 @@ type KeywordsExtractedManually =
 | "contentEncoding" | "contentMediaType" | "contentSchema"
 
 type Case1 = Test<Keywords<"2020-12">, KeywordsExtractedManually>
-type Case2 = Test<KeywordsExtractedManually, Keywords<"2020-12">>
+type Case2 = Test<KeywordsExtractedManually, Keywords<"https://json-schema.org/draft/2020-12/schema">>
 
 let Case1: Case1, Case2: Case2
