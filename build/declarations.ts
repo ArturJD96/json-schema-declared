@@ -1,6 +1,7 @@
 import { appendFileSync, readdirSync, readFileSync, statSync } from "fs"
 import { DECLARATIONS_FILE, SCHEMAS_DIR } from "./utils"
 import { join } from "path"
+import type { MetaschemaVersion } from "../src/metaschemas"
 
 
 /**

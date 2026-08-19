@@ -22,7 +22,7 @@ async function downloadSchema(name: typeof schemas[number], dir = join(SCHEMAS_D
   try {
 
     const indent = undefined
-    const json = await schema.json()
+    const json = await schema.json() as any
     const text = JSON.stringify(json, null, indent)
 
     SCHEMA_IDS.push(json.$id ?? json.id)
