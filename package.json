@@ -1,15 +1,15 @@
 {
   "name": "json-schemas",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "type": "module",
-  "exports": {
-    "types": "./main.d.ts"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArturJD96/json-schema-declared"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
     "build": "tsx ./build/build.ts"
   },
   "devDependencies": {
