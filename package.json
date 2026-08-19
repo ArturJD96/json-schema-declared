@@ -1,5 +1,5 @@
 {
-  "name": "json-schemas",
+  "name": "json-schema-declared",
   "version": "1.1.0",
   "type": "module",
   "repository": {
