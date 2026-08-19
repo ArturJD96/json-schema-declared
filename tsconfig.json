@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2023",
     "module": "esnext",
-    "lib": ["ES2023", "DOM"],
+    "lib": ["ES2023"],
     "types": ["node"],
     "skipLibCheck": true,
 
@@ -11,7 +11,7 @@
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    // "noEmit": true,
+    "noEmit": true,
 
     "declaration": true,
     "emitDeclarationOnly": true,
@@ -26,8 +26,6 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
 
-    /* Using */
-    "noErrorTruncation": true
   },
-  "include": ["lib", "build"],
+  "include": ["src", "build", "index.d.ts"],
 }

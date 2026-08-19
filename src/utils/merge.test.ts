@@ -1,3 +1,5 @@
+import type { JsonObject } from "./json"
+import type { Merge } from "./merge"
 
 
 type Test<A extends JsonObject[], B extends Merge<A> = Merge<A>> = B
@@ -6,15 +8,8 @@ type Test_Merge = {
 
   "Simple objects": Test<
     [
-      {
-        a: "A";
-        b: "B";
-        c: "C"
-      }, {
-        a: "1";
-        b: "2";
-        d: "D"
-      },
+      { a: "A", b: "B", c: "C" },
+      { a: "1", b: "2", d: "D" }
     ],
     {
       a: "A" | "1",
@@ -27,19 +22,11 @@ type Test_Merge = {
   "Complex objects (no arrays)": Test<[
     // Given...
     {
-      p: {
-        a: "A";
-        b: "B";
-        c: "C"
-      },
+      p: { a: "A", b: "B", c: "C" },
       q: { a: "A", b: "B" },
       s: "1"
     }, {
-      p: {
-        a: "1";
-        b: "2";
-        d: "D"
-      },
+      p: { a: "1", b: "2", d: "D" },
       r: { a: "1" },
       s: "2"
     }],
@@ -81,15 +68,10 @@ type Test_Merge = {
   >,
 
   "Union of three": Test<
-    [{
-      a: { b: "B" }
-    }, {
-      a: { b: "C", d: "D" },
-      f: "F"
-      }, {
-      a: { d: "DD", x: "X"},
-      f: { g: "G" }
-    }
+    [
+      { a: { b: "B" } },
+      { a: { b: "C", d: "D" }, f: "F" },
+      { a: { d: "DD", x: "X"}, f: { g: "G" } }
     ],
     {
       a: { b: "B" | "C", d: "D" | "DD", x: "X" },
