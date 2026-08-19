@@ -82,6 +82,19 @@ function getID(schema: string): string {
 
 }
 
+/**
+ * Find '$schema' field of a schema from it's string.
+ * @param schema expressed as a string.
+ * @returns
+ */
+function getMetaschema(schema: string): string {
+
+  const id = schema.match(/\$schema:\s*"([^"]+)\#?"/)?.[1]
+  if (!id) throw Error(`Found no schema of id:\n\t${id}`)
+  return id
+
+}
+
 
 /**
  * Turn schema's ID into a declaration definition
@@ -94,6 +107,13 @@ function id2var(id: URI | string): string {
   return str.toUpperCase().replaceAll(/[^A-Z0-9$]+/g, '_')
 }
 
+
+/**
+ * Replace the path's head with the provided one.
+ */
+function changePath(path: string, headNew: string): string {
+  return path?.split('/').slice(0, -1).concat([headNew]).join('/') ?? headNew
+}
 
 /**
  * Turn all references of a schema into Typescript references.
@@ -112,17 +132,21 @@ function resolveRefs(schema: string): string {
 
     const uri = new URI(jsonPointer)
     const fragment = uri.fragment?.replaceAll(/\/([^\/]+)/g, "['$1']").replaceAll(/\['([^0-9]\$?\w+)'\]/g, ".$1") ?? ""
-    const file = id2var(uri.scheme ? uri : uri.path ? `${id.authority}${id.path?.split('/').slice(0, -1).concat([uri.path]).join('/')}` : id)
-
+    const file = id2var(uri.scheme ? uri : uri.path ? `${id.authority}${changePath(id.path!, uri.path)}` : id)
     return `typeof ${file}${fragment}`
 
   }
 
   //  !!! WORKAROUND !!!
   //  TO DO: Resolve dynamic anchors BETTER.
-  //  This is just a work-around.
+  //  This is just a case-specific work-around.
   //  Source: https://www.learnjsonschema.com/2020-12/core/dynamicref/, see: 'meta'.
-  schema = schema.replaceAll(/\$dynamicRef:\s*"#meta([^"]*)"/g, `$ref:"#$1"`)
+  const metaschema = getMetaschema(schema)
+  console.log(id.uri, metaschema)
+  if (id.uri !== metaschema) {
+    schema = schema.replaceAll(/\$dynamicRef:\s*"#meta([^"]*)"/g, `$ref:"${metaschema}#$1"`)
+  }
+
   return schema.replaceAll(/{\$ref:\s*"([^"]*)"}/g, uri2const).replaceAll(/{\$recursiveRef:\s*"([^"]*)"}/g, uri2const)//.replaceAll(/\$dynamicRef:\s*"([^"]*)"/g, uri2const)
 
 }
