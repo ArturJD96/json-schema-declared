@@ -1,4 +1,4 @@
-import type { MetaschemaVersion, MetaschemaByVersion } from "./metaschemas"
+import type { Metaschema, MetaschemaVersion, MetaschemaByVersion, MetaschemaId } from "./metaschemas"
 import type { JsonObject } from "./utils/json"
 import type { Merge } from "./utils/merge"
 
@@ -14,11 +14,7 @@ type AllOf<J extends JsonObject> = J extends { "allOf": JsonObject[] } ? Merge<[
  * @example Keywords<"draft-00">
  * @example Keywords<"draft-07">
  * @example Keywords<"2020-12">
+ * @example Keywords<"https://json-schema.org/draft/2020-12/schema">
  */
-/*
-  NOTE:
-  The implementation defers execusion of type checking,
-  so that TS does not unfolds all dereferenced types at once
-  (and throw ts2589 error).
-*/
-export type Keywords<Version extends MetaschemaVersion, M extends JsonObject = MetaschemaByVersion<Version>> = M extends unknown ? keyof AllOf<M>['properties'] : never
+export type Keywords<T extends MetaschemaVersion | MetaschemaId, M = Metaschema<T>> = keyof AllOf<M>['properties']
+// export type Keywords<T extends MetaschemaVersion, M = MetaschemaByVersion<T>> = keyof AllOf<M>['properties']
