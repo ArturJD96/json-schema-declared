@@ -1,7 +1,7 @@
 /**
  * Forces object `O` to list all values of K as keys with value V.
  */
-type ForEach<K, V, O extends Record<K, V> = Record<K, V>> = O
+type ForEach<K extends string|number|symbol, V, O extends Record<K, V> = Record<K, V>> = O
 
 /**
  * Extract from union. Given the key `K` exists in object `O`, extract it's type.
