@@ -44,5 +44,5 @@ type SimpleTypesPerMetaschema = ForEach<MetaschemaVersion, string, {
  */
 export type SimpleTypes<
   VorID extends MetaschemaVersion | MetaschemaId,
-  V extends MetaschemaVersion = VorID extends MetaschemaVersion ? VorID : Id2Version<VorID>
+  V extends MetaschemaVersion = VorID extends MetaschemaId ? Id2Version<VorID> : VorID
 > = SimpleTypesPerMetaschema[V]

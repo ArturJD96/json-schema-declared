@@ -135,6 +135,61 @@ type Types00 = SimpleTypes<"draft-00">
 type LegacyTypes = Exclude<Types00, Types2020> // "any"
 ```
 
+## Version vs $id
+
+Within JSON Schemas, metaschemas are referred by their `$id` (e.g. `http://json-schema.org/draft-04/schema#`). However, `json-schema.org` specifications provide additional naming convention using version "names". Version names are validated against `MetaschemaVersion` string literal union containing all the version published so far by `json-schema.org`.
+
+When building your own JSON Schema metaschema-compliant software, it is adviced to stick to the version names instead of `$id`. The main benefit is that they express the whole _specification_ rather than a singular schema.
+
+Beware that metaschemas can be expressed via many interconnected schemas, all bearing their own `$id`. You are thus encouraged to use the version names, leaving dependent schemas for internal use of referencing mechanisms.
+
+There are however situations when it is easier to find metaschema by it's `$id`, for example when consuming a schema. Then, we may well use it's `$schema`, containing a metaschema's URI, to reference one of stored metaschemas.
+
+```ts
+import { Keywords } from "json-schema-declared"
+const someSchema = { "$schema": "http://json-schema.org/draft-04/schema#", ... } as const
+type KeywordsNeeded = Keywords<typeof someSchema.$schema]>
+````
+
+`json-schema-declared` utilities often allow for using metaschema version name and `$id` interchangeably. However, when you implement a various metaschema-compliant code, you may want to stick to version name.
+
+```ts
+import { MetaschemaVersion } from "json-schema-declared"
+const someSchema: {"$schema": ... }
+class Parser<V extends MetaschemaVersion> { public version?: V }
+/* Question: how to get version name from `someSchema`? */
+```
+
+You can move from `$id` to version name using `Id2Version` utility type. Notice that unlike `MetaschemaByID`, you cannot access version names of dependent schemas (because they have none):
+
+```ts
+import { Id2Version } from "json-schema-declared"
+type MyVersion = Id2Version<"https://json-schema.org/draft-04/schema">
+// -> 'draft-04'
+type MyVersion = Id2Version<"https://json-schema.org/draft/2019-09/schema">
+// -> '2019-09'
+
+/* The `meta/core` is a dependent schema of draft 2019-09  */
+type NoVersion = Id2Version<"https://json-schema.org/draft/2019-09/meta/core">
+// -> never
+```
+
+Internally, many `json-schema-declared` utilities use **either** `MetaschemaByID` or `Id2Version`, depending on context.
+
+```ts
+import { Keywords, SimpleTypes } from "json-schema-declared"
+/* A dependent schema defines keys! */
+type YesKeys = Keywords<"https://json-schema.org/draft/2019-09/meta/core">
+// -> ... | ... | ...
+/* 
+  But it is the metaschema as a whole which defines simple types.
+  Thus, a dependend schema cannot be looked for them.
+*/
+type NoTypes = SimpleTypes<"https://json-schema.org/draft/2019-09/meta/core">
+// -> never
+````
+
+
 # See also
 _Other projects that focus on Json Schema interoperability_:
 * [Standard Schema](https://github.com/standard-schema/standard-schema)
