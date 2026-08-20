@@ -1,5 +1,5 @@
 import { appendFileSync, readdirSync, readFileSync, statSync } from "fs"
-import { DECLARATIONS_FILE, SCHEMAS_DIR } from "./utils"
+import { DECLARATIONS_FILE, DECLARATIONS_RAW_FILE, SCHEMAS_DIR } from "./utils"
 import { join } from "path"
 import type { MetaschemaVersion } from "../src/metaschemas"
 
@@ -167,6 +167,22 @@ function declareSchema(schema: string) {
 
 }
 
+/**
+ * Append 'raw' schema declaration to `declarations.ts` file.
+ * A 'raw' schema has no references resolved.
+ * @param schema
+ */
+function declareSchemaRaw(schema: string) {
+
+  /* Remove quotes at key */
+  schema = schema.replaceAll(/\"(\$?\w+)\":/g, "$1:")
+
+  const id = new URI(getID(schema))
+  const varName = id2var(id)
+  const decl = `export declare const ${varName}: ${schema};\n\n`
+  appendFileSync(DECLARATIONS_RAW_FILE, decl, "utf-8")
+
+}
 
 export function createDeclarationFiles() {
 
@@ -176,9 +192,11 @@ export function createDeclarationFiles() {
 
     const dir = join(SCHEMAS_DIR, schemaName)
     traverse(dir, declareSchema)
+    traverse(dir, declareSchemaRaw)
 
   }
 
-  console.log("📝 Created schema files dependencies.\n")
+  console.log("📝 Created schema files declarations (dereferenced and raw).\n")
+
 
 }

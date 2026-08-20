@@ -3,6 +3,7 @@ import { rmSync } from 'fs'
 export const METASCHEMAS_DATABASE = (await import('./metaschemas.json')).default
 export const SCHEMAS_DIR = "./schemas"
 export const DECLARATIONS_FILE = "./src/declarations.d.ts"
+export const DECLARATIONS_RAW_FILE = "./src/declarations-raw.d.ts"
 
 /**
  * A list of files that this script generates.
@@ -14,6 +15,7 @@ export const DECLARATIONS_FILE = "./src/declarations.d.ts"
 export const GENERATED_FILES = [
   SCHEMAS_DIR,
   DECLARATIONS_FILE,
+  DECLARATIONS_RAW_FILE
 ] as const
 
 export function rmDirs() {

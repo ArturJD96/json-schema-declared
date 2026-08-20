@@ -113,6 +113,12 @@ type Subschemas = Schema['allOf'][number]['title']
 /* "Applicator vocabulary meta-schema" | ... */
 ```
 
+You can access the raw metaschema by setting an additional `Raw` parameter to `true`:
+```ts
+type RawSchema = Metaschema<'draft-06', true>['properties']['not']
+// -> { $ref: "#"; }
+```
+
 Further  metaschemas' content analysis is possible using `SimpleTypes` and `Keywords` type utilities:
 
 ```ts

@@ -8,3 +8,5 @@ const test2: MetaschemaByVersion<typeof version>['$id'] = test1
 
 const test3: Metaschema<typeof id>['$id'] = id;
 const test4: Metaschema<typeof version>['$id'] = id;
+
+const raw1: Metaschema<"2020-12", true>['allOf'][0]["$ref"] = "meta/core"
