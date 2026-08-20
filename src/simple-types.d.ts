@@ -1,5 +1,5 @@
 import type * as declarations from "./declarations"
-import type { MetaschemaId, MetaschemaVersion } from "./metaschemas"
+import type { Id2Version, MetaschemaId, MetaschemaVersion } from "./metaschemas"
 
 /**
  * Forces object `O` to list all values of K as keys with value V.
@@ -42,4 +42,7 @@ type SimpleTypesPerMetaschema = ForEach<MetaschemaVersion, string, {
  * @example SimpleTypes<"2020-12">
  * @example SimpleTypes<"https://json-schema.org/draft/2020-12/schema">
  */
-export type SimpleTypes<V extends MetaschemaVersion> = SimpleTypesPerMetaschema[V]
+export type SimpleTypes<
+  VorID extends MetaschemaVersion | MetaschemaId,
+  V extends MetaschemaVersion = VorID extends MetaschemaVersion ? VorID : Id2Version<VorID>
+> = SimpleTypesPerMetaschema[V]

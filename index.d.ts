@@ -6,7 +6,7 @@
  * interface with them using our custom types.
  */
 
-export type { Metaschema, MetaschemaRaw, MetaschemaVersion, MetaschemaId, MetaschemaByVersion, MetaschemaByID } from "./src/metaschemas";
+export type { Metaschema, MetaschemaRaw, MetaschemaVersion, MetaschemaId, MetaschemaByVersion, MetaschemaByID, Id2Version } from "./src/metaschemas";
 export type { SimpleTypes } from "./src/simple-types";
 export type { Keywords } from "./src/keywords";
 export type { KeysOfUnion } from "./src/utilities"

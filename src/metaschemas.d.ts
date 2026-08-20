@@ -40,6 +40,8 @@ export type MetaschemaId = (ExtractKey<Metaschemas, "id"> | ExtractKey<Metaschem
 
 /**
  * Retrieve a JSON Schema metaschema from declarations using metaschema's ID.
+ *
+ * _Note:_ this type CAN access metaschema dependent schemas. To avoid it, use `Metaschema<Id2Version<ID>>`.
  * @example MetaschemaByID<"https://json-schema.org/draft/2020-12/schema">
  */
 export type MetaschemaByID<
@@ -68,3 +70,16 @@ export type Metaschema<
   T extends MetaschemaVersion | MetaschemaId,
   Raw extends boolean = false
 > = T extends MetaschemaVersion ? MetaschemaByVersion<T, Raw> : MetaschemaByID<T, Raw>
+
+/**
+ * Convert JSON Schema metaschema `$id` value to version identifier.
+ *
+ * _Note_: this type returns `never` on metaschema's dependent schemas. To access those schemas, use `MetaschemaByID<Id>`.
+ * @example Id2Version<"https://json-schema.org/draft/2020-12/schema"> -> "2020-12"
+ * @example Id2Version<"http://json-schema.org/draft-04/schema#"> -> "draft-04"
+ */
+type Id2Version<
+  Id extends MetaschemaId,
+  I = Id extends `${string}.org/${infer D}/schema${'#' | ''}` ? D : never,
+  V = I extends `draft/${infer V}` ? V : I
+> = V extends MetaschemaVersion ? V : never
