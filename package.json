@@ -1,7 +1,8 @@
 {
   "name": "json-schema-declared",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "module",
+  "types": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/ArturJD96/json-schema-declared"
