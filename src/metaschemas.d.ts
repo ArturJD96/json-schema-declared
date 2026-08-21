@@ -34,9 +34,16 @@ type MetaschemasRaw = METASCHEMA_DECLARATIONS_RAW[keyof METASCHEMA_DECLARATIONS_
 
 
 /**
- * All available JSON Schema metaschemas IDs.
+ * All available JSON Schema metaschemas IDs (including their dependencies).
  */
-export type MetaschemaId = (ExtractKey<Metaschemas, "id"> | ExtractKey<Metaschemas, "$id">) //& (`${string}/schema` | `${string}/schema#`)
+export type AllMetaschemaId = (ExtractKey<Metaschemas, "id"> | ExtractKey<Metaschemas, "$id">) //& (`${string}/schema` | `${string}/schema#`)
+
+
+/**
+ * All available JSON Schema metaschemas IDs (without their dependencies).
+ */
+export type MetaschemaId = AllMetaschemaId & `${string}/schema${'#'|''}`
+
 
 /**
  * Retrieve a JSON Schema metaschema from declarations using metaschema's ID.
@@ -45,7 +52,7 @@ export type MetaschemaId = (ExtractKey<Metaschemas, "id"> | ExtractKey<Metaschem
  * @example MetaschemaByID<"https://json-schema.org/draft/2020-12/schema">
  */
 export type MetaschemaByID<
-  ID extends MetaschemaId,
+  ID extends AllMetaschemaId,
   Raw extends boolean = false
 > = Extract<Raw extends true ? MetaschemasRaw : Metaschemas, { "$id": ID } | { "id": ID }>
 
@@ -67,7 +74,7 @@ export type MetaschemaByVersion<
  * @example Metaschema<"2020-12", true>['allOf'][0]["$ref"] -> "meta/core"
  */
 export type Metaschema<
-  T extends MetaschemaVersion | MetaschemaId,
+  T extends MetaschemaVersion | AllMetaschemaId,
   Raw extends boolean = false
 > = T extends MetaschemaVersion ? MetaschemaByVersion<T, Raw> : MetaschemaByID<T, Raw>
 
