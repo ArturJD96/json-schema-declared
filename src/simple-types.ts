@@ -1,5 +1,5 @@
 import type * as declarations from "./declarations"
-import type { Id2Version, MetaschemaId, MetaschemaVersion } from "./metaschemas"
+import type { Id2Version, MetaschemaId, MetaschemaIdentifier, MetaschemaVersion } from "./metaschemas"
 
 /**
  * Forces object `O` to list all values of K as keys with value V.

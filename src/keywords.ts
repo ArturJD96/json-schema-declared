@@ -1,4 +1,4 @@
-import type { Metaschema, MetaschemaVersion, MetaschemaByVersion, AllMetaschemaId } from "./metaschemas"
+import type { Metaschema, MetaschemaVersion, AllMetaschemaId } from "./metaschemas"
 import type { JsonObject } from "./utils/json"
 import type { Merge } from "./utils/merge"
 
@@ -16,5 +16,5 @@ type AllOf<J extends JsonObject> = J extends { "allOf": JsonObject[] } ? Merge<[
  * @example Keywords<"2020-12">
  * @example Keywords<"https://json-schema.org/draft/2020-12/schema">
  */
-export type Keywords<T extends MetaschemaVersion | AllMetaschemaId, M = Metaschema<T>> = keyof AllOf<M>['properties']
+export type Keywords<T extends MetaschemaVersion | AllMetaschemaId, M extends JsonObject = Metaschema<T>> = keyof AllOf<M>['properties']
 // export type Keywords<T extends MetaschemaVersion, M = MetaschemaByVersion<T>> = keyof AllOf<M>['properties']

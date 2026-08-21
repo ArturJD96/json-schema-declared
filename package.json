@@ -1,6 +1,6 @@
 {
   "name": "json-schema-declared",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "type": "module",
   "types": "./index.d.ts",
   "repository": {

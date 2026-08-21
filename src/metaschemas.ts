@@ -48,7 +48,7 @@ export type MetaschemaId = AllMetaschemaId & `${string}/schema${'#'|''}`
 /**
  * All possible ways a metaschema can be retrieved.
  */
-export type MetaschemaIdentifier = MetaschemaIdentifier
+export type MetaschemaIdentifier = MetaschemaVersion | MetaschemaId
 
 /**
  * Retrieve a JSON Schema metaschema from declarations using metaschema's ID.
@@ -68,8 +68,9 @@ export type MetaschemaByID<
  */
 export type MetaschemaByVersion<
   V extends MetaschemaVersion,
-  Raw extends boolean = false
-> = MetaschemaByID<`${string}/${V}/schema#` | `${string}/draft/${V}/schema`, Raw>
+  Raw extends boolean = false,
+  ID extends MetaschemaId = `${string}/${V}/schema#` extends MetaschemaId ? `${string}/${V}/schema#` : `${string}/draft/${V}/schema` extends MetaschemaId ?  `${string}/draft/${V}/schema` : never
+> = MetaschemaByID<ID, Raw>
 
 /**
  * Retrieve a JSON Schema by it's version or ID.
@@ -81,7 +82,7 @@ export type MetaschemaByVersion<
 export type Metaschema<
   T extends MetaschemaVersion | AllMetaschemaId,
   Raw extends boolean = false
-> = T extends MetaschemaVersion ? MetaschemaByVersion<T, Raw> : MetaschemaByID<T, Raw>
+> = T extends MetaschemaVersion ? MetaschemaByVersion<T, Raw> : T extends AllMetaschemaId ? MetaschemaByID<T, Raw> : never
 
 /**
  * Convert JSON Schema metaschema `$id` value to version identifier.
