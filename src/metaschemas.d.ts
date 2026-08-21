@@ -46,6 +46,11 @@ export type MetaschemaId = AllMetaschemaId & `${string}/schema${'#'|''}`
 
 
 /**
+ * All possible ways a metaschema can be retrieved.
+ */
+export type MetaschemaIdentifier = MetaschemaIdentifier
+
+/**
  * Retrieve a JSON Schema metaschema from declarations using metaschema's ID.
  *
  * _Note:_ this type CAN access metaschema dependent schemas. To avoid it, use `Metaschema<Id2Version<ID>>`.

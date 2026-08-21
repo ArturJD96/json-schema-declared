@@ -43,6 +43,6 @@ type SimpleTypesPerMetaschema = ForEach<MetaschemaVersion, string, {
  * @example SimpleTypes<"https://json-schema.org/draft/2020-12/schema">
  */
 export type SimpleTypes<
-  VorID extends MetaschemaVersion | MetaschemaId,
-  V extends MetaschemaVersion = VorID extends MetaschemaId ? Id2Version<VorID> : VorID
+  I extends MetaschemaIdentifier,
+  V extends MetaschemaVersion = I extends MetaschemaId ? Id2Version<I> : I
 > = SimpleTypesPerMetaschema[V]
