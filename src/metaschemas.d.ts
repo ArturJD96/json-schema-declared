@@ -85,7 +85,7 @@ export type Metaschema<
  * @example Id2Version<"https://json-schema.org/draft/2020-12/schema"> -> "2020-12"
  * @example Id2Version<"http://json-schema.org/draft-04/schema#"> -> "draft-04"
  */
-type Id2Version<
+export type Id2Version<
   Id extends MetaschemaId,
   I = Id extends `${string}.org/${infer D}/schema${'#' | ''}` ? D : never,
   V = I extends `draft/${infer V}` ? V : I
