@@ -90,3 +90,8 @@ export type Id2Version<
   I = Id extends `${string}.org/${infer D}/schema${'#' | ''}` ? D : never,
   V = I extends `draft/${infer V}` ? V : I
 > = V extends MetaschemaVersion ? V : never
+
+/**
+ * Get JSON Schema metaschema version from `$id`.
+ */
+export type Version2Id<V extends MetaschemaVersion> = "$id" extends keyof MetaschemaByVersion<V> ? MetaschemaByVersion<V>["$id"] : "id" extends keyof MetaschemaByVersion<V> ? MetaschemaByVersion<V>["id"] : never
