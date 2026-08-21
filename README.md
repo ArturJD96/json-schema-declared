@@ -196,8 +196,27 @@ type YesKeys = Keywords<"https://json-schema.org/draft/2019-09/meta/core">
 */
 type NoTypes = SimpleTypes<"https://json-schema.org/draft/2019-09/meta/core">
 // -> never
-````
+```
 
+You may as well convert a version to Id. The query is done using metaschema itself:
+```ts
+type ID = Version2Id<"2019-09">
+// -> "https://json-schema.org/draft/2019-09/schema"
+```
+
+Finally, if you don't know whether to use version or id, you can use `MetaschemaIdentifier` utility.
+
+## JsonSchema as type
+
+> [!Warning]
+> This feature is experimental. For now, it's types are too generic.
+
+You can type a JSON object as a JSON Schema instance using `JsonSchema` type:
+
+```ts
+import { JsonSchema } from "json-schema-declared"
+const mySchema: JsonSchema<"2019-19"> = {}
+```
 
 # See also
 _Other projects that focus on Json Schema interoperability_:
