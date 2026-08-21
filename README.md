@@ -8,16 +8,14 @@ import 'json-schema-declared'
 /* 
   Query metaschema by identifiers: version name or id.
 */
-let m: MetaschemaVersion<'2020-12'>
-let m: MetaschemaId<'http://json-schema.org/draft-04/schema#'>
-let m: AllMetaschemaId<'https://json-schema.org/draft/2019-09/meta/core'>
-let m: MetaschemaIdentifier<MetaschemaIdentifier>
-
-/*
-  Convert metaschema identifiers.
-*/
-let c: Id2Version<'http://json-schema.org/draft-02/schema#'> // -> draft-02
-let c: Version2Id<'2019-09'> // -> https://json-schema.org/draft/2019-09/schema
+let m: Metaschema<'2020-12'>
+// declare const { 
+//  readonly $schema: "https://json-schema.org/draft/2019-09/schema",
+//  properties: { ... },
+// ...
+// }
+let m: MetaschemaByID<'http://json-schema.org/draft-04/schema#'>
+let m: MetaschemaByVersion<'draft-00'>
 
 /*
   Analyze metaschema content.
@@ -27,10 +25,24 @@ let a: Keywords<'draft-07'> // "$schema" | ... | "properties" | ...
 
 /*
   Type your schemas
-  Note: feature is a work in progress, but is well usable.
+  Note: feature is a work in progress, but is well usable now.
 */
 let s: JsonSchema<'2020-12'> = { $schema: 'https://json-schema.org/draft/2019-09/schema' }
 // ERROR: Types of property $schema are incompatible (ts 2322)
+
+/*
+  Metaschema identifiers
+*/
+let i: MetaschemaVersion // e.g. "draft-06"
+let m: MetaschemaId // e.g. 'http://json-schema.org/draft-07/schema#'
+let m: AllMetaschemaId // together with dependencies, e.g. 'https://json-schema.org/draft/2019-09/meta/core'
+let m: MetaschemaIdentifier // Version and ID together.
+
+/*
+  Convert metaschema identifiers.
+*/
+let c: Id2Version<'http://json-schema.org/draft-02/schema#'> // 'draft-02'
+let c: Version2Id<'2019-09'> // 'https://json-schema.org/draft/2019-09/schema'
 ```
 
 # Instalation
